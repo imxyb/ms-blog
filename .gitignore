@@ -1,0 +1,16 @@
+# ---> Yii
+assets/*
+!assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
+protected/data/*.db
+themes/classic/views/
+
+web/assets/
+runtime/
+.buildpath
+web/uploads/
+.project
+.settings/org.eclipse.php.core.prefs
+.idea
+.settings/
