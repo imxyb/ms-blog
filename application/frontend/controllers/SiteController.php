@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use app\services\AbcService;
 use BaseComponents\base\YarClient;
 use Yii;
 use yii\filters\AccessControl;
@@ -12,53 +13,7 @@ use yii\web\Controller;
  */
 class SiteController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
-                'rules' => [
-                    [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
-    }
-
+    public $enableCsrfValidation = false;
     /**
      * Displays homepage.
      *
@@ -71,11 +26,18 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-        $client = new \Yar_Client('http://passport.msblog.local/service/login');
+        $this->layout = false;
+        $client = new \Yar_Client('http://www.msblog.local/site/test');
 //        $client = Yii::$app->yarclient->call(YarClient::PASSPORT_API.'/login');
-        var_dump($client->login1());exit;
-        return $this->render('login', [
-
-        ]);
+        var_dump($client->abc());exit;
+//        return $this->render('login', [
+//
+//        ]);
+    }
+    
+    public function actionTest()
+    {
+        $server = new \Yar_Server(new AbcService());
+        $server->handle();
     }
 }

@@ -5,12 +5,12 @@ class API {
      * @params
      * @return
      */
-    public function api() {
+    public function __construct() {
     }
 
-    protected function client_can_not_see() {
+    public function client_can_not_see() {
     }
 }
 
-$service = new Yar_Server(new API());
+$service = new \Yar_Server(new API());
 $service->handle();

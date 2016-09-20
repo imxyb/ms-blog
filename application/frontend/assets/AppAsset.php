@@ -9,6 +9,12 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
+    public function init()
+    {
+        \Yii::setAlias('@bower', VENDOR_DIR . '/../base/vendor/bower');
+        parent::init(); 
+    }
+
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
